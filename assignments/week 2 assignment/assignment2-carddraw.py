@@ -27,23 +27,23 @@ for card in hand:
     print(card["value"],"of",card["suit"])
 
 
-# Check to see if the hand contains a Pair, Triple, Straight or Flush
+# Check to see if the hand contains a Pair, Triple, Straight or Flush, making sure only to list the highest hand
 
 num = [card["value"] for card in hand]
 suits = [card["suit"] for card in hand]
 
-test = [1,1,1,4,5]
+cnt = Counter(num)
 
-cnt = Counter()
-for value in test:
-    cnt[value] += 1
-    if cnt[value] == 2 and cnt[value] !=3:
-        print("This hand has a Pair")
-    elif cnt[value] == 3 and cnt[value] !=2:
+for value, count in cnt.items():
+    if count == 2:
+        print("This hand has a Pair") 
+        break 
+    elif count == 3:
         print("This hand has a Triple")
-
-if max(test) - min(test) == 4 and len(test) == 5:
+        break
+    elif len(set(num)) == 5 and max(num) - min(num) == 4: 
         print("This hand has a Straight.")
-
-if len(set(suits)) == 1:
-    print("This hand has a Flush")
+        break
+    elif len(set(suits)) == 1:
+        print("This hand has a Flush")
+        break
